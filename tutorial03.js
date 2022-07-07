@@ -20,21 +20,21 @@ const sketch = ({ context, width, height }) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-  for(let i = 0; i < agents.length; i++){
-    const agent = agents[i];
-    for(let j = i + 1; j < agents.length; j++){
-      const other = agents[j];
+    for(let i = 0; i < agents.length; i++){
+      const agent = agents[i];
+      for(let j = i + 1; j < agents.length; j++){
+        const other = agents[j];
 
-      const dist = agent.pos.distanceTo(other.pos);
-      if(dist < 200){
-        context.lineWidth = math.mapRange(dist, 0, 200, 12, 1);
-        context.beginPath();
-        context.moveTo(agent.pos.x, agent.pos.y);
-        context.lineTo(other.pos.x, other.pos.y);
-        context.stroke(); 
+        const dist = agent.pos.distanceTo(other.pos);
+        if(dist < 200){
+          context.lineWidth = math.mapRange(dist, 0, 200, 12, 1);
+          context.beginPath();
+          context.moveTo(agent.pos.x, agent.pos.y);
+          context.lineTo(other.pos.x, other.pos.y);
+          context.stroke(); 
+        }
       }
     }
-  }
 
     agents.forEach(agent => {
       agent.update();
