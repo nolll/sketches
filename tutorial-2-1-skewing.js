@@ -8,13 +8,14 @@ const seed = random.getRandomSeed();
 
 const settings = {
   dimensions: [ 1080, 1080 ],
-  name: `skew-${seed}`
+  name: `skew-${seed}`,
+  //animate: true
 };
 
 const sketch = ({ context, width, height }) => {
   random.setSeed(seed);
 
-  let x, y, w, h, fill, stroke, blend;
+  let x, y, w, h, v, fill, stroke, blend;
   const num = 40;
   const degrees = -30;
 
@@ -38,6 +39,7 @@ const sketch = ({ context, width, height }) => {
     y = random.range(0, height);
     w = random.range(600, width);
     h = random.range(40, 200);
+    v = random.range(-10, 10);
 
     fill = random.pick(rectColors).hex;
     stroke = random.pick(rectColors).hex;
@@ -103,6 +105,23 @@ const sketch = ({ context, width, height }) => {
     context.stroke();
     
     context.restore();
+
+    rects.forEach(rect => {
+      rect.x += v;
+      rect.y += Math.sin(math.degToRad(degrees)) * v;
+      if((rect.x + width) < 0){
+        rect.x = width;
+      }
+      else if(rect.x > width){
+        rect.x = 0;
+      }
+      if((rect.y + height) < 0){
+        rect.y = height;
+      }
+      else if(rect.y > height){
+        rect.y = 0;
+      }
+    });
   };
 };
 
