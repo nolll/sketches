@@ -15,38 +15,14 @@ const settings = {
 const sketch = ({ context, width, height }) => {
   random.setSeed(seed);
 
-  let x, y, w, h, v, fill, stroke, blend;
-  const num = 40;
+  const rectCount = 40;
   const degrees = -30;
 
-  const rects = [];
-  const rectColors = [
-    random.pick(risoColors),
-    random.pick(risoColors)
-  ];
-
+  const rectColors = getRectColors();
   const bgColor = random.pick(risoColors).hex;
 
-  const mask = {
-    radius: width * 0.4,
-    sides: 3,
-    x: width * 0.5,
-    y: height * 0.58
-  };
-
-  for(let i = 0; i < num; i++){
-    x = random.range(0, width);
-    y = random.range(0, height);
-    w = random.range(600, width);
-    h = random.range(40, 200);
-    v = random.range(-10, 10);
-
-    fill = random.pick(rectColors).hex;
-    stroke = random.pick(rectColors).hex;
-    blend = random.value > 0.5 ? 'overlay' : 'source-over';
-
-    rects.push({x, y, w, h, fill, stroke, blend});
-  }
+  const mask = createMask(width, height);
+  const rects = createRects(width, height, rectCount, rectColors);
 
   return ({ context, width, height }) => {
     context.fillStyle = bgColor;
@@ -107,13 +83,13 @@ const sketch = ({ context, width, height }) => {
     context.restore();
 
     rects.forEach(rect => {
-      rect.x += v;
-      rect.y += Math.sin(math.degToRad(degrees)) * v;
-      if((rect.x + width) < 0){
-        rect.x = width;
+      rect.x += rect.v;
+      rect.y += Math.sin(math.degToRad(degrees)) * rect.v;
+      if((rect.x + width * 0.5) < 0){
+        rect.x = width * 1.5;
       }
-      else if(rect.x > width){
-        rect.x = 0;
+      else if(rect.x > width * 1.5){
+        rect.x = -width * 0.5;
       }
       if((rect.y + height) < 0){
         rect.y = height;
@@ -153,6 +129,42 @@ const drawPolygon = ({context, radius = 100, sides = 3}) => {
   }
 
   context.closePath();
+}
+
+const getRectColors = () => {
+  return [
+    random.pick(risoColors),
+    random.pick(risoColors)
+  ];
+}
+
+const createRects = (canvasWidth, canvasHeight, count, colors) => {
+  const rects = [];
+  const velocities = [-2, -1, 1, 2];
+  for(let i = 0; i < count; i++){
+    const x = random.range(0, canvasWidth);
+    const y = random.range(0, canvasHeight);
+    const w = random.range(600, canvasWidth);
+    const h = random.range(40, 200);
+    const v = random.pick(velocities);
+
+    fill = random.pick(colors).hex;
+    stroke = random.pick(colors).hex;
+    blend = random.value > 0.5 ? 'overlay' : 'source-over';
+
+    rects.push({x, y, w, h, v, fill, stroke, blend});
+  }
+
+  return rects;
+}
+
+const createMask = (canvasWidth, canvasHeight) => {
+  return {
+    radius: canvasWidth * 0.4,
+    sides: 3,
+    x: canvasWidth * 0.5,
+    y: canvasHeight * 0.58
+  };
 }
 
 canvasSketch(sketch, settings);
