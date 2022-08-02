@@ -4,7 +4,8 @@ const math = require('canvas-sketch-util/math');
 const colormap = require('colormap');
 
 const settings = {
-  dimensions: [ 1080, 1080 ]
+  dimensions: [ 1080, 1080 ],
+  animate: true
 };
 
 const sketch = ({width, height}) => {
@@ -24,8 +25,7 @@ const sketch = ({width, height}) => {
 
   const colors = colormap({
     colormap: 'salinity',
-    nshades: amplitude,
-
+    nshades: amplitude
   });
 
   const points = [];
@@ -34,16 +34,13 @@ const sketch = ({width, height}) => {
     y = Math.floor(i / cols) * ch;
 
     n = random.noise2D(x, y, frequency, amplitude);
-    x += n;
-    y += n;
-
     lineWidth = math.mapRange(n, -amplitude, amplitude, 0, 5);
     color = colors[Math.floor(math.mapRange(n, -amplitude, amplitude, 0, amplitude ))];
 
     points.push(new Point({x, y, lineWidth, color}));
   }
 
-  return ({ context, width, height }) => {
+  return ({ context, width, height, frame }) => {
     context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
 
@@ -52,6 +49,13 @@ const sketch = ({width, height}) => {
     context.translate(cw * 0.5, ch * 0.5);
     context.strokeStyle = 'red';
     context.lineWidth = 4;
+
+    // update positions
+    points.forEach(point => {
+      n = random.noise2D(point.ix + frame * 3, point.iy, frequency, amplitude);
+      point.x = point.ix + n;
+      point.y = point.iy + n;
+    });
 
     let lastx, lasty;
     // draw lines
@@ -99,6 +103,8 @@ class Point{
     this.y = y;
     this.lineWidth = lineWidth;
     this.color = color;
+    this.ix = x;
+    this.iy = y;
   }
 
   draw(context){
