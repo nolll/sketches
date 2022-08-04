@@ -148,6 +148,11 @@ defined@^1.0.0:
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
   integrity sha512-Y2caI5+ZwS5c3RiNDJ6u53VhQHv+hHKwhkI1iHvceKUHw9Df6EK2zRLfjejRgMuCuxK7PfSWIMwWecceVvThjQ==
 
+eases@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/eases/-/eases-1.0.8.tgz#f1f5069a6b6ed2ea510f9c6110398d63efe9aee6"
+  integrity sha512-U8TwgFYPktV07tV9yxoIu9TIWsXHGOuDJNXlyihWEMnGMXaoh2kkfWf0N1itbCjHWrgs+/leubuG7m+OgkfA0Q==
+
 float-hsl2rgb@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/float-hsl2rgb/-/float-hsl2rgb-1.0.2.tgz#ecf3509c40ac6567c96a204622b0c4c4bf43c8a1"
