@@ -1,6 +1,8 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
+const math = require('canvas-sketch-util/math');
 const eases = require('eases');
+const colormap = require('colormap');
 
 const settings = {
   dimensions: [ 1080, 1080 ],
@@ -9,6 +11,11 @@ const settings = {
 
 const particles = [];
 const cursor = {x: 9999, y: 9999};
+
+const colors = colormap({
+  colormap: 'viridis',
+  nshades: 20
+});
 
 let elCanvas;
 
@@ -52,6 +59,8 @@ const sketch = ({ width, height, canvas }) => {
   return ({ context, width, height }) => {
     context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
+
+    particles.sort((a, b) => a.scale - b.scale);
 
     particles.forEach(particle => {
       particle.update();
@@ -104,6 +113,8 @@ class Particle{
     this.iy = y;
 
     this.radius = radius;
+    this.scale = 1;
+    this.color = colors[0];
 
     this.minDist = random.range(100, 200);
     this.pushFactor = random.range(0.01, 0.02);
@@ -113,13 +124,20 @@ class Particle{
 
   update(){
     let dx, dy, dd, distDelta;
+    let idxColor;
 
     // pull force
     dx = this.ix - this.x;
     dy = this.iy - this.y;
+    dd = Math.sqrt(dx * dx + dy * dy);
 
     this.ax = dx * this.pullFactor;
     this.ay = dy * this.pullFactor;
+
+    this.scale = math.mapRange(dd, 0, 200, 1, 5);
+
+    idxColor = Math.floor(math.mapRange(dd, 0, 200, 0, colors.length - 1, true));
+    this.color = colors[idxColor];
 
     // push force
     dx = this.x - cursor.x;
@@ -146,9 +164,9 @@ class Particle{
   draw(context){
     context.save();
     context.translate(this.x, this.y);
-    context.fillStyle = 'white';
+    context.fillStyle = this.color;
     context.beginPath();
-    context.arc(0, 0, this.radius, 0, Math.PI * 2);
+    context.arc(0, 0, this.radius * this.scale, 0, Math.PI * 2);
     context.fill();
     context.restore();
   }
