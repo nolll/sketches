@@ -192,7 +192,7 @@ class Particle{
     // idxColor = Math.floor(math.mapRange(dd, 0, 200, 0, colors.length - 1, true));
     // this.color = colors[idxColor];
 
-    this.color = this.colMap(math.mapRange(dd, 0, 200, 0, 1, true));
+    this.color = '#fff';// this.colMap(math.mapRange(dd, 0, 200, 0, 1, true));
 
     // push force
     dx = this.x - cursor.x;

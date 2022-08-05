@@ -1,22 +1,24 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
-const risoColors = require('riso-colors');
+const colorMap = require('colormap');
 
 const settings = {
   dimensions: [ 1080, 1080 ],
   animate: true
 };
 
-const numSwarms = 10;
+const numSwarms = 20;
 const dotsPerSwarm = 50;
-const swarmSize = 75;
+
+const colorMaps = [
+  'spring','summer','autumn','winter'
+];
 
 const sketch = ({width, height}) => {
   const swarms = [];
 
   while(swarms.length < numSwarms){
-    const config = configSwarm(width, height);
-    const swarm = new Swarm(config.x, config.y, config.vx, config.vy);
+    const swarm = createSwarm(width, height);
     swarms.push(swarm);
   }
 
@@ -28,34 +30,39 @@ const sketch = ({width, height}) => {
       const swarm = swarms[i];
       swarm.update();
       if(swarm.isBelow(height)){
-        const config = configSwarm(width, height);
-        swarms[i] = new Swarm(config.x, config.y, config.vx, config.vy);
+        swarms[i] = createSwarm(width, height);
       }
       swarm.draw(context);
     }
   };
 };
 
-const configSwarm = (width, height) => {
-  const x = random.pick([-100, width + 100]);
-  const y = random.range(200, height - 200);
+const createSwarm = (canvasWidth, canvasHeight) => {
+  const x = random.pick([-100, canvasWidth + 100]);
+  const y = random.range(200, canvasHeight - 200);
   vxAbs = random.range(2, 7);
   vx = x < 0 ? vxAbs : -vxAbs;
   vy = random.range(-10, -1);
-  return {x, y, vx, vy};
+  return new Swarm(x, y, vx, vy);
 };
 
 class Swarm{
   constructor(x, y, vx, vy){
     this.dots = [];
-    const speedNoice = 2;
+    const speedNoise = 2;
+    const posNoise = 10;
+    const colors = colorMap({
+      colormap: random.pick(colorMaps)
+    });
 
     for(let i = 0; i < dotsPerSwarm; i++){
-      const color = random.pick(risoColors).hex;
+      const color = random.pick(colors);
       const radius = random.range(4, 12);
-      const dvx = random.range(vx - speedNoice, vx + speedNoice);
-      const dvy = random.range(vy - speedNoice, vy + speedNoice);
-      const dot = new Dot(x, y, dvx, dvy, radius, color);
+      const dx = random.range(x - posNoise, x + posNoise);
+      const dy = random.range(y - posNoise, y + posNoise);
+      const dvx = random.range(vx - speedNoise, vx + speedNoise);
+      const dvy = random.range(vy - speedNoise, vy + speedNoise);
+      const dot = new Dot(dx, dy, dvx, dvy, radius, color);
       this.dots.push(dot);
     }
   }
