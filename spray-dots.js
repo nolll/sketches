@@ -16,8 +16,7 @@ const sketch = ({width, height}) => {
 
   while(swarms.length < numSwarms){
     const config = configSwarm(width, height);
-    const swarm = new Swarm();
-    swarm.init(config.x, config.y, config.vx, config.vy);
+    const swarm = new Swarm(config.x, config.y, config.vx, config.vy);
     swarms.push(swarm);
   }
 
@@ -25,14 +24,15 @@ const sketch = ({width, height}) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    swarms.forEach(swarm => {
+    for(let i = 0; i < swarms.length; i++){
+      const swarm = swarms[i];
       swarm.update();
       if(swarm.isBelow(height)){
         const config = configSwarm(width, height);
-        swarm.init(config.x, config.y, config.vx, config.vy);
+        swarms[i] = new Swarm(config.x, config.y, config.vx, config.vy);
       }
       swarm.draw(context);
-    });
+    }
   };
 };
 
@@ -46,22 +46,18 @@ const configSwarm = (width, height) => {
 };
 
 class Swarm{
-  constructor(){
+  constructor(x, y, vx, vy){
     this.dots = [];
+    const speedNoice = 2;
 
     for(let i = 0; i < dotsPerSwarm; i++){
-      const dot = new Dot();
-      this.dots.push(dot);
-    }
-  }
-
-  init(x, y, vx, vy){
-    const speedNoice = 2;
-    this.dots.forEach(dot => {
       const color = random.pick(risoColors).hex;
       const radius = random.range(4, 12);
-      dot.init(x, y, random.range(vx - speedNoice, vx + speedNoice), random.range(vy - speedNoice, vy + speedNoice), radius, color);
-    });
+      const dvx = random.range(vx - speedNoice, vx + speedNoice);
+      const dvy = random.range(vy - speedNoice, vy + speedNoice);
+      const dot = new Dot(x, y, dvx, dvy, radius, color);
+      this.dots.push(dot);
+    }
   }
 
   update(){
@@ -86,18 +82,7 @@ class Swarm{
 }
 
 class Dot{
-  constructor(){
-    this.x = 0;
-    this.y = 0;
-    this.vx = 0;
-    this.vy = 0;
-    this.ax = 0;
-    this.ay = 0;
-    this.color = null;
-    this.radius = 10;
-  }
-
-  init(x, y, vx, vy, radius, color){
+  constructor(x, y, vx, vy, radius, color){
     this.x = x;
     this.y = y;
     this.vx = vx;
