@@ -49,7 +49,7 @@ const createSwarm = (canvasWidth, canvasHeight) => {
 class Swarm{
   constructor(x, y, vx, vy){
     this.dots = [];
-    const speedNoise = 2;
+    const speedNoise = 4;
     const posNoise = 10;
     const colors = colorMap({
       colormap: random.pick(colorMaps)
@@ -57,7 +57,7 @@ class Swarm{
 
     for(let i = 0; i < dotsPerSwarm; i++){
       const color = random.pick(colors);
-      const radius = random.range(4, 12);
+      const radius = random.range(2, 6);
       const dx = random.range(x - posNoise, x + posNoise);
       const dy = random.range(y - posNoise, y + posNoise);
       const dvx = random.range(vx - speedNoise, vx + speedNoise);
