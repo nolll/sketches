@@ -28,7 +28,7 @@ const drawBranch = (context, length, lineWidth, x, y, angle, level) => {
   
   context.strokeStyle = level > 4
     ? random.pick(greens)
-    : 'maroon';
+    : 'black';
   context.beginPath();
   context.moveTo(x, y);
   const l = random.range(length * 0.5, length * 0.75);
