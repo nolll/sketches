@@ -1,15 +1,14 @@
 const canvasSketch = require('canvas-sketch');
 
 const settings = {
-  dimensions: [ 1080, 1080 ],
-  //animate: true
+  dimensions: [ 1080, 1080 ]
 };
 
 let elCanvas;
 let points;
 let lines;
 
-const sketch = ({context, width, height, canvas, styleWidth, styleHeight}) => {
+const sketch = ({canvas, styleWidth, styleHeight}) => {
   img.width  = styleWidth;
 	img.height = styleHeight;
 
@@ -117,11 +116,9 @@ const sketch = ({context, width, height, canvas, styleWidth, styleHeight}) => {
     ])
   ];
 
-  // canvas.addEventListener('mousedown', onMouseDown);
-
   elCanvas = canvas;
 
-  return ({ context, width, height, canvas, styleWidth, styleHeight }) => {
+  return ({ context }) => {
     context.fillStyle = 'white';
     context.lineWidth = 3;
 
@@ -133,7 +130,6 @@ const sketch = ({context, width, height, canvas, styleWidth, styleHeight}) => {
     }
 
     legendDiv.innerHTML += `Total ${Math.round(totalLength)} px, 3000 mm<br><br>`;
-    console.log(legendDiv.innerHTML);
 
     for(let i = 0; i < lines.length; i++){
       var line = lines[i];
@@ -181,43 +177,6 @@ legendDiv.style.margin = '1em';
 document.body.appendChild(legendDiv);
 
 canvasSketch(sketch, settings);
-
-const onMouseDown = (e) => {
-  // window.addEventListener('mousemove', onMouseMove);
-  // window.addEventListener('mouseup', onMouseUp);
-
-  const {x, y} = translateCoords({x: e.offsetX, y: e.offsetY});
-  console.log(`new Point({x: ${x}, y: ${y}})`);
-  
-  // let hit = false;
-  // points.forEach(point => {
-  //   point.isDragging = point.hitTest(x, y);
-  //   if(!hit && point.isDragging){
-  //     hit = true;
-  //   }
-  // });
-
-  // if(!hit){
-  //   points.push(new Point({x, y}));
-  //   console.log(`new Point({x: ${x}, y: ${y}})`);
-  // }
-};
-
-const onMouseMove = (e) => {
-  const {x, y} = translateCoords({x: e.offsetX, y: e.offsetY});
-  
-  points.forEach(point => {
-    if(point.isDragging){
-      point.x = x;
-      point.y = y;
-    }
-  });
-};
-
-const onMouseUp = () => {
-  window.removeEventListener('mousemove', onMouseMove);
-  window.removeEventListener('mouseup', onMouseUp);
-};
 
 const translateCoords = ({x, y}) => {
   const translatedX = x / elCanvas.offsetWidth * elCanvas.width;
