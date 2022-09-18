@@ -18,26 +18,27 @@ typeDiv.style.justifyContent = 'center';
 typeDiv.style.alignItems = 'center';
 typeDiv.style.flexDirection = 'column';
 typeDiv.style.zIndex = '-1';
-const typeCanvas = document.createElement('canvas');
-typeDiv.appendChild(typeCanvas);
+const typeImg = document.createElement('img');
+typeImg.src = '../assets/g.svg';
+typeDiv.appendChild(typeImg);
 document.body.appendChild(typeDiv);
-const svgContext = typeCanvas.getContext('2d');
 
 const sketch = () => {
   return ({ context, width, height, styleWidth, styleHeight }) => {
     context.fillStyle = 'white';
     //context.fillRect(0, 0, width, height);
 
-    typeCanvas.width  = styleWidth;
-	  typeCanvas.height = styleHeight;
+    typeImg.width  = styleWidth;
+	  typeImg.height = styleHeight;
 
-    svgContext.fillStyle = 'black';
-    svgContext.fillRect(0, 0, width, height);
-
-    context.strokeStyle = 'yellow';
-    context.translate(width * 0.5, height * 0.5);
-    context.beginPath();
-    context.arc(0, 0, 500, 0, Math.PI * 2);
+    context.strokeStyle = 'red';
+    context.moveTo(578, 464);
+    context.lineTo(578, 665);
+    context.lineTo(715, 665);
+    //context.translate(width * 0.5 + 65, height * 0.5);
+    //context.beginPath();
+    //context.arc(0, 0, 480, 0, Math.PI * 2);
+    //context.ellipse(0, 0, 440, 480, 0, 0, Math.PI * 2);
     context.stroke();
   };
 };
