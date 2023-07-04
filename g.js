@@ -164,7 +164,7 @@ div.style.alignItems = 'center';
 div.style.flexDirection = 'column';
 div.style.zIndex = '-1';
 const img = document.createElement('img');
-img.src = '../assets/g.svg';
+img.src = 'g.svg';
 div.appendChild(img);
 document.body.appendChild(div);
 
