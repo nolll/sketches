@@ -15,9 +15,8 @@ const sketch = ({ context, width, height }) => {
 	const numSlices = 40;
 	const radius = width * 0.3;
 
-	possibleColors = ['jet', 'rainbow-soft']
 	const colors = colormap({
-		colormap: random.pick(possibleColors)
+		colormap: 'chlorophyll'
 	});
 	
 	const cx = width  * 0.5;
@@ -46,7 +45,7 @@ const sketch = ({ context, width, height }) => {
 			slice * random.range(1, -8),
 			slice * random.range(1, 5),
 			random.range(5, 20),
-			0,//random.range(0.5, 1.5),
+			0,
 			random.range(-0.02, 0.02),
 			random.pick(colors)
 		);
@@ -78,7 +77,7 @@ const sketch = ({ context, width, height }) => {
 
 			context.beginPath();
 			context.rect(-w * 0.5, stroke.y, w, h);
-			context.fillStyle = 'black';
+			context.fillStyle = stroke.color;
 			context.fill();
 			context.restore();
 		}
