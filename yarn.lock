@@ -68,10 +68,10 @@ canvas-sketch-util@^1.10.0:
     simplex-noise "^2.4.0"
     svg-path-contours "^2.0.0"
 
-canvas-sketch@^0.7.5:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/canvas-sketch/-/canvas-sketch-0.7.5.tgz#53111f3a93343e44f5bfb46c065ad155efbb8a04"
-  integrity sha512-3E7oZ250O+feVHzMXD1vd2PGAzvjE6iskQE/pP5vZ4g5Np/79751L2aMUcn70I8eDsa8wkUoTuj2NXWAfypwig==
+canvas-sketch@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/canvas-sketch/-/canvas-sketch-0.7.7.tgz#55936c8c3756c6061d10ba8f63470ce3f92197d8"
+  integrity sha512-gwvDjXrD1etmSiPa+TGuRzgC6gr8foFtwvPbqyYKEldY68XDEs8MDBoaIbYxbWeQiyLZBGau+P72do27pAhZaA==
   dependencies:
     convert-length "^1.0.1"
     dateformat "^3.0.3"
@@ -429,10 +429,10 @@ svg-path-contours@^2.0.0:
     normalize-svg-path "^0.1.0"
     vec2-copy "^1.0.0"
 
-tweakpane@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/tweakpane/-/tweakpane-3.1.0.tgz#3ecaecf09c6234e27d0d8f101e16128b65fecc86"
-  integrity sha512-PGAp/LPQdHwzL7/iAW4lV1p9iPQTti7YMjMWO48CoYjvZRS59RmgQnhEGzKzqST1JnmOYmQUjTe8bdhlZRJs5A==
+tweakpane@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/tweakpane/-/tweakpane-4.0.0.tgz#19df9155298a492ff58805181a7f9572fb78f98e"
+  integrity sha512-U1kbExuRj921my8EX7VHq+ajYoIIzlE7+4P94CtHkBBLw0ggq8ktyY6cUCHb/lOKrTUS7N0OKY1HawBcX4vecA==
 
 vec2-copy@^1.0.0:
   version "1.0.0"
