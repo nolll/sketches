@@ -24,6 +24,6 @@
     "colormap": "^2.3.2",
     "eases": "^1.0.8",
     "riso-colors": "^1.0.1",
-    "tweakpane": "^4.0.0"
+    "tweakpane": "^4.0.1"
   }
 }

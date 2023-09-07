@@ -429,10 +429,10 @@ svg-path-contours@^2.0.0:
     normalize-svg-path "^0.1.0"
     vec2-copy "^1.0.0"
 
-tweakpane@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/tweakpane/-/tweakpane-4.0.0.tgz#19df9155298a492ff58805181a7f9572fb78f98e"
-  integrity sha512-U1kbExuRj921my8EX7VHq+ajYoIIzlE7+4P94CtHkBBLw0ggq8ktyY6cUCHb/lOKrTUS7N0OKY1HawBcX4vecA==
+tweakpane@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/tweakpane/-/tweakpane-4.0.1.tgz#36d8730fa1d44c07da278760e16562505657929a"
+  integrity sha512-1JmmGbF4h2zuFbpN1XfIWcV0kLbBUgSXpR1QtW19vJFx44asnCrufRSvd69OItOFMEWgbVtoiWM2uDPUEUKcMQ==
 
 vec2-copy@^1.0.0:
   version "1.0.0"
