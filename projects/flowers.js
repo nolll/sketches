@@ -9,7 +9,14 @@ const settings = {
 };
 
 const sketch = ({ context, width, height }) => {
-  const leafCount = 20;
+  const leafCount = 50;
+  let angles = [];
+
+  for (var i = 0; i < leafCount; i++) {
+    angles.push(((2 * Math.PI) / leafCount) * i);
+  }
+
+  angles = random.shuffle(angles);
 
   return ({ context, width, height, frame }) => {
     context.fillStyle = "white";
@@ -22,7 +29,7 @@ const sketch = ({ context, width, height }) => {
       context.save();
       context.translate(width / 2, height / 2);
       context.scale(0.8, 0.8);
-      var angle = ((2 * Math.PI) / leafCount) * i;
+      var angle = angles[i];
       context.rotate(angle);
 
       const topPoint = { x: 0, y: 0 };
